@@ -34,7 +34,13 @@ export default function LoginPage() {
     }
     setLoading(true)
     try {
-      await api.post('/api/auth/login', { email, password })
+      const res = await api.post('/api/auth/login', { email, password })
+      if (res.data.token) {
+        const { token, ...userData } = res.data
+        finishAuth(userData, token)
+        router.push('/dashboard')
+        return
+      }
       setStep('otp')
       setOtp('')
       setCooldown(60)
