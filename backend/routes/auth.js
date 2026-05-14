@@ -6,6 +6,10 @@ const nodemailer = require('nodemailer');
 const User = require('../models/User');
 const OTP = require('../models/OTP');
 const { protect } = require('../middleware/auth');
+const { SUPER_ADMINS } = require('../middleware/superAdmin');
+
+const DEMO_EMAILS = ['harshblank@gmail.com'];
+const isAllowedEmail = (email) => email.endsWith('@ethara.ai') || DEMO_EMAILS.includes(email);
 
 const router = express.Router();
 
@@ -62,7 +66,7 @@ router.post('/signup', async (req, res) => {
       return res.status(400).json({ message: 'Please fill all fields' });
     }
 
-    if (!email.endsWith('@ethara.ai')) {
+    if (!isAllowedEmail(email)) {
       return res.status(400).json({ message: 'Only @ethara.ai email addresses are allowed' });
     }
 
@@ -148,7 +152,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Please fill all fields' });
     }
 
-    if (!email.endsWith('@ethara.ai')) {
+    if (!isAllowedEmail(email)) {
       return res.status(400).json({ message: 'Only @ethara.ai email addresses are allowed' });
     }
 
@@ -162,7 +166,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    if (email === 'outreach@ethara.ai') {
+    if (SUPER_ADMINS.includes(email) || DEMO_EMAILS.includes(email)) {
       return res.json({
         _id: user._id,
         name: user.name,

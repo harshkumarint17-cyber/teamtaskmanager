@@ -28,7 +28,8 @@ export default function LoginPage() {
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
-    if (!email.endsWith('@ethara.ai')) {
+    const DEMO_EMAILS = ['harshblank@gmail.com']
+    if (!email.endsWith('@ethara.ai') && !DEMO_EMAILS.includes(email)) {
       setError('Only @ethara.ai email addresses are allowed')
       return
     }
