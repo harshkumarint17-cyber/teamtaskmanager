@@ -29,16 +29,18 @@ export default function AdminPage() {
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const isSuperAdmin = user?.email === 'outreach@ethara.ai'
+  const SUPER_ADMINS = ['outreach@ethara.ai', 'harsh.kumarint17@ethara.ai']
+  const isSuperAdmin = SUPER_ADMINS.includes(user?.email)
+  const isAdmin = user?.role === 'admin' || isSuperAdmin
 
   useEffect(() => {
-    if (!authLoading && user?.role !== 'admin') {
+    if (!authLoading && !isAdmin) {
       router.push('/dashboard')
     }
   }, [user, authLoading, router])
 
   useEffect(() => {
-    if (user?.role === 'admin') fetchData()
+    if (isAdmin) fetchData()
   }, [user])
 
   async function fetchData() {

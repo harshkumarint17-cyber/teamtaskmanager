@@ -28,7 +28,9 @@ export default function Sidebar({ open, onClose }) {
   const pathname = usePathname()
   const { user } = useAuth()
 
-  const allItems = user?.role === 'admin' ? [...navItems, ...adminItems] : navItems
+  const SUPER_ADMINS = ['outreach@ethara.ai', 'harsh.kumarint17@ethara.ai']
+  const isAdmin = user?.role === 'admin' || SUPER_ADMINS.includes(user?.email)
+  const allItems = isAdmin ? [...navItems, ...adminItems] : navItems
 
   return (
     <>
