@@ -2,6 +2,12 @@
 
 **Live App:** https://teamtaskmanager-tau-seven.vercel.app
 
+## Preview
+
+![TeamFlow Screenshot](webpage.png)
+
+> For a full walkthrough, watch the video demo: [webpage teamflow EtharaAI.mp4](webpage%20teamflow%20EtharaAI.mp4)
+
 TeamFlow is a full-stack team and project management application built for real workplace use. It lets you organize your team around projects, assign tasks with deadlines and priorities, and track progress in one place. Whether you're managing a small startup team or a growing department, TeamFlow gives admins the tools to stay on top of everything while giving team members a clear view of what they need to work on.
 
 The app is built with Next.js on the frontend, Express.js on the backend, and MongoDB for data storage. Authentication is handled with JWTs, and the entire UI is styled with Tailwind CSS in a dark purple theme.
