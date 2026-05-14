@@ -35,6 +35,9 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendOTPEmail(email, otp, name) {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    throw new Error('Email service is not configured. Please contact the administrator.');
+  }
   await transporter.sendMail({
     from: `"TeamFlow" <${process.env.EMAIL_USER}>`,
     to: email,
